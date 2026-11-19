@@ -61,3 +61,28 @@
 ## 7. 核心设计原则
 
 **一个用户可以拥有多个项目，一个项目对应一个独立 Sandbox，一个 Sandbox 可以运行多个 Agent；所有 Sandbox 由统一调度器管理，实现安全隔离、资源共享和弹性并发。**
+
+## 8. MVP 快速启动
+
+当前仓库包含第一阶段的 API 和任务调度骨架：
+
+- `apps/api`：项目、任务和健康检查 API
+- PostgreSQL：项目与任务持久化
+- Redis + BullMQ：Agent 任务队列
+- WebSocket：`/ws` 实时通信入口
+- `apps/api/src/worker.ts`：后续接入 Docker/Firecracker Sandbox 的 Worker
+
+```bash
+cp .env.example .env
+npm install
+docker compose up -d
+npm run dev
+```
+
+另开终端启动任务 Worker：
+
+```bash
+npm run worker -w @forgeos/api
+```
+
+默认 API 地址为 `http://localhost:3000`。认证暂以 `x-user-id` 请求头作为开发占位，生产环境应替换为 OAuth/JWT 中间件。

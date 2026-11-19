@@ -1,0 +1,12 @@
+{
+  "name": "forgeos",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev -w @forgeos/api",
+    "build": "npm run build -w @forgeos/api",
+    "start": "npm run start -w @forgeos/api"
+  }
+}
